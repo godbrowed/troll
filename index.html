@@ -68,12 +68,31 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .referral-count {
-            font-size: 2.5rem;
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 20px 0;
+        }
+
+        .stat-box {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-value {
+            font-size: 2rem;
             color: #ffd700;
-            margin: 16px 0;
+            margin: 8px 0;
             font-family: 'Playfair Display', serif;
             text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #cccccc;
         }
 
         .referral-link {
@@ -201,8 +220,8 @@
                 font-size: 2rem;
             }
             
-            .referral-count {
-                font-size: 2rem;
+            .stat-value {
+                font-size: 1.5rem;
             }
             
             .input-group {
@@ -225,7 +244,16 @@
         
         <div class="referral-section">
             <h2>Your Referrals</h2>
-            <div class="referral-count">0</div>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-value" id="referralCount">0</div>
+                    <div class="stat-label">Total Referrals</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="totalEarnings">$0.00</div>
+                    <div class="stat-label">Total Earnings</div>
+                </div>
+            </div>
             <p>Invite friends and earn 20% of their purchases!</p>
             <div class="input-group">
                 <input type="text" id="referralLink" readonly>
@@ -255,10 +283,12 @@
 
             try {
                 // Get referral data from Telegram
-                const referralCode = `REF${user.id}`;
+                const referralCode = `ref_${user.id}`;
                 const referralCount = 0; // This would come from your backend
+                const totalEarnings = 0; // This would come from your backend
                 
-                document.querySelector('.referral-count').textContent = referralCount;
+                document.getElementById('referralCount').textContent = referralCount;
+                document.getElementById('totalEarnings').textContent = `$${totalEarnings.toFixed(2)}`;
                 document.getElementById('referralLink').value = `https://t.me/luxurynft_bot/Luxury?startapp=ref_${referralCode}`;
             } catch (error) {
                 console.error('Error loading user data:', error);
